@@ -94,7 +94,7 @@ string Date::ToRussian() const {
     };
     string month_name = month_names[month_ - 1];
     stringstream ss;
-    ss << day_ << ' ' << month_name << ' ' << year_;
+    ss << day_ << ' ' << month_name << ' ' << year_ << " г.";
     return ss.str();
 }
 
