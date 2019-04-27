@@ -1,0 +1,6 @@
+*.out
+*.exe
+a
+*.txt
+*.stackdump
+.vscode
