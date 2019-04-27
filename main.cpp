@@ -4,26 +4,31 @@
 #include <vector>
 #include <set>
 #include "date.h"
+#include "date_generator.h"
 
 using namespace std;
 
 int main(){
-    ifstream in("in.txt");
-    ofstream out("out.txt");
-    Date date;
-    vector<Date> dates;
-    while(in >> date){
-        if (!IsValidDate(date)){
-            cerr << "Invalid date: " << date << endl;
-            exit(1);
-        }
-        dates.push_back(date);
-    }
-    for(const Date& date : dates){
-        out << date << "  -  " << date.ToRussian() << endl;
-    }
+    // ofstream out("in.txt");
 
+    // for(int i = 0; i < 100000; ++i){
+    //     out << DateGenerator::GetRandomDate() << endl;
+    // }
+
+    // out.close();
+// ======================================================================
+
+    ifstream in("in.txt");
+    int count = 0;
+    Date date;
+    while(in >> date){
+        ++count;
+        if(!IsValidDate(date)){
+            cout << count << ": " << date << " is invalid!" << endl;
+        }
+    }
+    cout << "Checked " <<  count << " dates. " << endl;
     in.close();
-    out.close();
+
     return 0;
 }
