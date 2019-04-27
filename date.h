@@ -1,3 +1,6 @@
+#ifndef DATE_H
+#define DATE_H
+
 #include <iostream>
 #include <tuple>
 #include <set>
@@ -35,3 +38,6 @@ bool IsLeapYear(int year);
 
 ostream& operator << (ostream& stream, const Date& date);
 istream& operator >> (istream& stream, Date& date);
+
+
+#endif
