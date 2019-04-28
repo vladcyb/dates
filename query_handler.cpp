@@ -58,14 +58,14 @@ void QueryHandler::Handle(const std::string& query) const {
         cout << fails_count << " dates are invalid. " << endl;
         in.close();
         cout << "Done." << endl;
-    } else if (first_word == "british") {
+    } else if (first_word == "eng") {
         string input_filename;
         string output_filename;
         ss.clear();
         ss >> input_filename >> output_filename;
         if (ss.fail()){
             cout << "Usage:" << endl;
-            cout << "   british <input_file> <output_file>" << endl;
+            cout << "   eng <input_file> <output_file>" << endl;
             return;
         }
         ifstream in(input_filename);
@@ -76,7 +76,7 @@ void QueryHandler::Handle(const std::string& query) const {
         }
         Date date;
         while(in >> date){
-            out << date << ' ' << date.ToBritish() << endl;
+            out << date << ' ' << date.ToEnglish() << endl;
         }
         in.close();
         out.close();

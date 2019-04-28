@@ -78,7 +78,7 @@ int MaxDayInMonth(int year, int month){
     }
 }
 
-string Date::ToBritish() const {
+string Date::ToEnglish() const {
     vector<string> month_names = {
         "",
         "January",
