@@ -4,7 +4,7 @@ void QueryHandler::Handle(const std::string& query) const {
     std::stringstream ss(query);
     std::string first_word;
     ss >> first_word;
-    if (first_word == "generate"){
+    if (first_word == "gen"){
         int count_dates_to_generate;
         std::string output_filename;
         ss >> count_dates_to_generate;
@@ -14,7 +14,7 @@ void QueryHandler::Handle(const std::string& query) const {
             out << DateGenerator::GetRandomDate() << endl;
         }
         out.close();
-    } else if (first_word == "check"){
+    } else if (first_word == "ch"){
         std::string input_filename;
         ss >> input_filename;
         ifstream in(input_filename);
@@ -24,6 +24,9 @@ void QueryHandler::Handle(const std::string& query) const {
         string str_date;
         while(getline(in, str_date)){
             ++count;
+            if (!str_date.size()){
+                continue;
+            }
             if (!IsValidDate(str_date)){
                 cout << "  Line " << count << ": " << str_date << " is invalid." << endl;
                 ++fails_count;

@@ -111,7 +111,7 @@ bool IsValidDate(const string& date_str){
 
     if (year_str.size() != 4
                 || month_str.size() != 2
-                || day_str.size() != 2){
+                ||   day_str.size() != 2){
         return false;
     }
     int year = stoi(year_str);
