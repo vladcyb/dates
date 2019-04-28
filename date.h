@@ -33,7 +33,7 @@ bool operator == (const Date& lhs, const Date& rhs);
 bool operator != (const Date& lhs, const Date& rhs);
 bool operator < (const Date& lhs, const Date& rhs);
 
-bool IsValidDate(const Date& date);
+bool IsValidDate(const string& str_date);
 bool IsLeapYear(int year);
 
 ostream& operator << (ostream& stream, const Date& date);

@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "date.h"
 
 int Date::GetYear() const {
@@ -99,10 +100,24 @@ string Date::ToRussian() const {
 }
 
 
-bool IsValidDate(const Date& date){
-    int year = date.GetYear();
-    int month = date.GetMonth();
-    int day = date.GetDay();
+bool IsValidDate(const string& date_str){
+    istringstream is(date_str);
+    string year_str;
+    string month_str;
+    string day_str;
+    getline(is, year_str, '-');
+    getline(is, month_str, '-');
+    getline(is, day_str);
+
+    if (year_str.size() != 4
+                || month_str.size() != 2
+                || day_str.size() != 2){
+        return false;
+    }
+    int year = stoi(year_str);
+    int month = stoi(month_str);
+    int day = stoi(day_str);
+
     int max_day = MaxDayInMonth(year, month);
     if (month < 1 || month > 12){
         return false;

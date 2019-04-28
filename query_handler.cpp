@@ -14,5 +14,23 @@ void QueryHandler::Handle(const std::string& query) const {
             out << DateGenerator::GetRandomDate() << endl;
         }
         out.close();
+    } else if (first_word == "check"){
+        std::string input_filename;
+        ss >> input_filename;
+        ifstream in(input_filename);
+        Date date;
+        int count = 0;
+        int fails_count = 0;
+        string str_date;
+        while(getline(in, str_date)){
+            ++count;
+            if (!IsValidDate(str_date)){
+                cout << "  Line " << count << ": " << str_date << " is invalid." << endl;
+                ++fails_count;
+            }
+        }
+        cout << "Checked " << count << " lines." << endl;
+        cout << fails_count << " dates are invalid. " << endl;
+        in.close();
     }
 }
