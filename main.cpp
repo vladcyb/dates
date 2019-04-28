@@ -18,7 +18,6 @@ int main(){
         getline(cin, query);
         QueryHandler handler;
         handler.Handle(query);
-        cout << endl;
     }
 
     return 0;

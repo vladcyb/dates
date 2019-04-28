@@ -78,24 +78,25 @@ int MaxDayInMonth(int year, int month){
     }
 }
 
-string Date::ToRussian() const {
+string Date::ToBritish() const {
     vector<string> month_names = {
-        "января",
-        "февраля",
-        "марта",
-        "апреля",
-        "мая",
-        "июня",
-        "июля",
-        "августа",
-        "сентября",
-        "октября",
-        "ноября",
-        "декабря"
+        "",
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
     };
-    string month_name = month_names[month_ - 1];
+    string month_name = month_names[month_];
     stringstream ss;
-    ss << day_ << ' ' << month_name << ' ' << year_ << " г.";
+    ss << day_ << ' ' << month_name << ' ' << year_;
     return ss.str();
 }
 

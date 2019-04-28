@@ -23,7 +23,7 @@ public:
     void SetYear(int x);
     void SetMonth(int x);
     void SetDay(int x);
-    string ToRussian() const;
+    string ToBritish() const;
     inline static const set<int> thirtyOneDaysMonths = {1, 3, 5, 7, 8, 10, 12};
 };
 
