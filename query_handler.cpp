@@ -76,7 +76,7 @@ void QueryHandler::Handle(const std::string& query) const {
         }
         Date date;
         while(in >> date){
-            out << date << ' ' << date.ToEnglish() << endl;
+            out << date.ToEnglish() << endl;
         }
         in.close();
         out.close();
