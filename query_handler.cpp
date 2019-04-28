@@ -1,4 +1,5 @@
 #include "query_handler.h"
+#define PERMISSION_ERROR "permission denied."
 
 void QueryHandler::Handle(const std::string& query) const {
     std::stringstream ss(query);
@@ -17,6 +18,10 @@ void QueryHandler::Handle(const std::string& query) const {
             return;
         }
         std::ofstream out(output_filename);
+        if (!out){
+            cout << output_filename << ": " << PERMISSION_ERROR << endl;
+            return;
+        }
         for(int i = 0; i < count_dates_to_generate; ++i){
             out << DateGenerator::GetRandomDate() << endl;
         }
@@ -54,17 +59,21 @@ void QueryHandler::Handle(const std::string& query) const {
         in.close();
         cout << "Done." << endl;
     } else if (first_word == "british") {
-        string input_file_name;
-        string output_file_name;
+        string input_filename;
+        string output_filename;
         ss.clear();
-        ss >> input_file_name >> output_file_name;
+        ss >> input_filename >> output_filename;
         if (ss.fail()){
             cout << "Usage:" << endl;
             cout << "   british <input_file> <output_file>" << endl;
             return;
         }
-        ifstream in(input_file_name);
-        ofstream out(output_file_name);
+        ifstream in(input_filename);
+        ofstream out(output_filename);
+        if (!out){
+            cout << output_filename << ": " << PERMISSION_ERROR << endl;
+            return;
+        }
         Date date;
         while(in >> date){
             out << date << ' ' << date.ToBritish() << endl;
