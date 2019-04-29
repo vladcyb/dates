@@ -32,7 +32,6 @@ void QueryHandler::Handle(const std::string& query) const {
         for(int i = 0; i < count_dates_to_generate; ++i){
             out << DateGenerator::GetRandomDate() << endl;
         }
-        out.close();
         cout << "Generated " << count_dates_to_generate << " dates into "
         << output_filename << endl;
         cout << "Done." << endl;
@@ -63,7 +62,6 @@ void QueryHandler::Handle(const std::string& query) const {
         }
         cout << "Checked " << count << " lines." << endl;
         cout << fails_count << " dates are invalid. " << endl;
-        in.close();
         cout << "Done." << endl;
     } else if (first_word == "eng") {
         string input_filename;
@@ -85,8 +83,6 @@ void QueryHandler::Handle(const std::string& query) const {
         while(in >> date){
             out << date.ToEnglish() << endl;
         }
-        in.close();
-        out.close();
         cout << "Done." << endl;
     } else if (first_word == "sort"){
         string input_filename;
@@ -115,7 +111,5 @@ void QueryHandler::Handle(const std::string& query) const {
         for(const auto& date : dates){
             out << date << endl;
         }
-        in.close();
-        out.close();
     }
 }
