@@ -28,9 +28,11 @@ void QueryHandler::Handle(const std::string& query) const {
             cout << output_filename << ": " << PERMISSION_ERROR << endl;
             return;
         }
+        stringstream output_data;
         for(int i = 0; i < count_dates_to_generate; ++i){
-            out << DateGenerator::GetRandomDate() << endl;
+            output_data << DateGenerator::GetRandomDate() << endl;
         }
+        out << output_data.rdbuf();
         cout << "Generated " << count_dates_to_generate << " dates into "
         << output_filename << endl;
         cout << "Done." << endl;
@@ -83,9 +85,11 @@ void QueryHandler::Handle(const std::string& query) const {
             return;
         }
         Date date;
+        stringstream output_data;
         while(in >> date){
-            out << date.ToEnglish() << endl;
+            output_data << date.ToEnglish() << endl;
         }
+        out << output_data.rdbuf();
         cout << "Done." << endl;
     } else if (first_word == "sort"){
         string input_filename;
@@ -115,8 +119,11 @@ void QueryHandler::Handle(const std::string& query) const {
             dates.push_back(date);
         }
         sort(dates.begin(), dates.end());
+        stringstream output_data;
         for(const auto& date : dates){
-            out << date << endl;
+            output_data << date << endl;
         }
+        out << output_data.rdbuf();
+        cout << "Done." << endl;
     }
 }
