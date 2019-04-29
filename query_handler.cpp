@@ -1,31 +1,47 @@
 #include "query_handler.h"
+using namespace std;
 
 #define PERMISSION_ERROR "permission denied."
 
-std::ifstream::pos_type QueryHandler::GetSize(const string& filename) const {
-    std::ifstream in(filename, std::ifstream::ate | std::ifstream::binary);
+ifstream::pos_type QueryHandler::GetSize(const string& filename) const {
+    ifstream in(filename, ifstream::ate | ifstream::binary);
     return in.tellg();
 }
+bool QueryHandler::CheckOnFails(stringstream& ss, const string& message) const {
+    if (ss.fail()){
+        cout << message << endl;
+        ss.clear();
+        return false;
+    }
+    return true;
+}
 
-void QueryHandler::Handle(const std::string& query) const {
-    std::stringstream ss(query);
-    std::string first_word;
+bool QueryHandler::CheckWriteAvailable(
+    ofstream& out, const string& output_filename) const {
+    out.open(output_filename);
+    if (!out){
+        cout << output_filename << ": " << PERMISSION_ERROR << endl;
+        return false;
+    }
+    return true;
+}
+
+
+void QueryHandler::Handle(const string& query) const {
+    stringstream ss(query);
+    string first_word;
     ss >> first_word;
     if (first_word == "gen"){
         int count_dates_to_generate;
-        std::string output_filename;
+        string output_filename;
         ss.clear();
         ss >> count_dates_to_generate;
         ss >> output_filename;
-        if (ss.fail()){
-            cout << "Usage: " << endl;
-            cout << "   gen X <filename>" << endl;
-            ss.clear();
+        if (!CheckOnFails(ss, "Usage:\n    gen <X> <filename>")){
             return;
         }
-        std::ofstream out(output_filename);
-        if (!out){
-            cout << output_filename << ": " << PERMISSION_ERROR << endl;
+        ofstream out;
+        if (!CheckWriteAvailable(out, output_filename)){
             return;
         }
         stringstream output_data;
@@ -37,13 +53,10 @@ void QueryHandler::Handle(const std::string& query) const {
         << output_filename << endl;
         cout << "Done." << endl;
     } else if (first_word == "ch"){
-        std::string input_filename;
+        string input_filename;
         ss.clear();
         ss >> input_filename;
-        if (ss.fail()){
-            cout << "Usage: " << endl;
-            cout << "   ch <filename>" << endl;
-            ss.clear();
+        if (!CheckOnFails(ss, "Usage:\n    ch <filename>")){
             return;
         }
         ifstream in(input_filename);
@@ -69,9 +82,7 @@ void QueryHandler::Handle(const std::string& query) const {
         string output_filename;
         ss.clear();
         ss >> input_filename >> output_filename;
-        if (ss.fail()){
-            cout << "Usage:" << endl;
-            cout << "   eng <input_file> <output_file>" << endl;
+        if (!CheckOnFails(ss, "Usage:\n   eng <input_file> <output_file>")){
             return;
         }
         if (input_filename == output_filename){
@@ -79,9 +90,8 @@ void QueryHandler::Handle(const std::string& query) const {
             return;
         }
         ifstream in(input_filename);
-        ofstream out(output_filename);
-        if (!out){
-            cout << output_filename << ": " << PERMISSION_ERROR << endl;
+        ofstream out;
+        if(!CheckWriteAvailable(out, output_filename)){
             return;
         }
         Date date;
@@ -96,9 +106,7 @@ void QueryHandler::Handle(const std::string& query) const {
         string output_filename;
         ss.clear();
         ss >> input_filename >> output_filename;
-        if (ss.fail()){
-            cout << "Usage:" << endl;
-            cout << "   sort <input_file> <output_file>" << endl;
+        if (!CheckOnFails(ss, "Usage:\n    sort <input_filename> <output_filename>")){
             return;
         }
         if (input_filename == output_filename){
@@ -106,8 +114,8 @@ void QueryHandler::Handle(const std::string& query) const {
             return;
         }
         ifstream in(input_filename);
-        ofstream out(output_filename);
-        if (!out){
+        ofstream out;
+        if (!CheckWriteAvailable(out, output_filename)){
             cout << output_filename << ": " << PERMISSION_ERROR << endl;
             return;
         }

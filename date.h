@@ -13,8 +13,6 @@
 #include <stdexcept>
 #include <algorithm>
 
-using namespace std;
-
 class Date{
 private:
     int year_;
@@ -29,8 +27,8 @@ public:
     void SetYear(int x);
     void SetMonth(int x);
     void SetDay(int x);
-    string ToEnglish() const;
-    inline static const set<int> thirtyOneDaysMonths = {1, 3, 5, 7, 8, 10, 12};
+    std::string ToEnglish() const;
+    inline static const std::set<int> thirtyOneDaysMonths = {1, 3, 5, 7, 8, 10, 12};
 };
 
 int MaxDayInMonth(int year, int month);
@@ -39,11 +37,11 @@ bool operator == (const Date& lhs, const Date& rhs);
 bool operator != (const Date& lhs, const Date& rhs);
 bool operator < (const Date& lhs, const Date& rhs);
 
-bool IsValidDate(const string& str_date);
+bool IsValidDate(const std::string& str_date);
 bool IsLeapYear(int year);
 
-ostream& operator << (ostream& stream, const Date& date);
-istream& operator >> (istream& stream, Date& date);
+std::ostream& operator << (std::ostream& stream, const Date& date);
+std::istream& operator >> (std::istream& stream, Date& date);
 
 
 #endif
