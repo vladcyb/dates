@@ -2,11 +2,17 @@
 #define DATE_H
 
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <chrono>
 #include <tuple>
 #include <set>
 #include <iomanip>
 #include <vector>
 #include <sstream>
+#include <stdexcept>
+#include <algorithm>
+
 using namespace std;
 
 class Date{

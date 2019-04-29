@@ -1,5 +1,4 @@
 #include "query_handler.h"
-#include <algorithm>
 
 #define PERMISSION_ERROR "permission denied."
 

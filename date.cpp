@@ -1,4 +1,3 @@
-#include <stdexcept>
 #include "date.h"
 
 int Date::GetYear() const {
