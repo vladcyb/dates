@@ -5,3 +5,7 @@ a
 *.stackdump
 .vscode
 *.diff
+test.cpp
+x
+y
+z

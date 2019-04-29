@@ -1,5 +1,12 @@
 #include "query_handler.h"
+#include <algorithm>
+
 #define PERMISSION_ERROR "permission denied."
+
+std::ifstream::pos_type QueryHandler::GetSize(const string& filename) const {
+    std::ifstream in(filename, std::ifstream::ate | std::ifstream::binary);
+    return in.tellg();
+}
 
 void QueryHandler::Handle(const std::string& query) const {
     std::stringstream ss(query);
@@ -81,5 +88,34 @@ void QueryHandler::Handle(const std::string& query) const {
         in.close();
         out.close();
         cout << "Done." << endl;
+    } else if (first_word == "sort"){
+        string input_filename;
+        string output_filename;
+        ss.clear();
+        ss >> input_filename >> output_filename;
+        if (ss.fail()){
+            cout << "Usage:" << endl;
+            cout << "   sort <input_file> <output_file>" << endl;
+            return;
+        }
+        ifstream in(input_filename);
+        ofstream out(output_filename);
+        if (!out){
+            cout << output_filename << ": " << PERMISSION_ERROR << endl;
+            return;
+        }
+        Date date;
+        int dates_capacity = GetSize(input_filename) / 11;
+        vector<Date> dates;
+        dates.reserve(dates_capacity);
+        while(in >> date){
+            dates.push_back(date);
+        }
+        sort(dates.begin(), dates.end());
+        for(const auto& date : dates){
+            out << date << endl;
+        }
+        in.close();
+        out.close();
     }
 }

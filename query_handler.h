@@ -10,7 +10,7 @@ class QueryHandler{
 public:
     void Handle(const std::string& query) const;
 private:
-
+    std::ifstream::pos_type GetSize(const string& filename) const;
 };
 
 
