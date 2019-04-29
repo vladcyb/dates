@@ -73,6 +73,10 @@ void QueryHandler::Handle(const std::string& query) const {
             cout << "   eng <input_file> <output_file>" << endl;
             return;
         }
+        if (input_filename == output_filename){
+            cout << "Error! Input and output are the same." << endl;
+            return;
+        }
         ifstream in(input_filename);
         ofstream out(output_filename);
         if (!out){
@@ -92,6 +96,10 @@ void QueryHandler::Handle(const std::string& query) const {
         if (ss.fail()){
             cout << "Usage:" << endl;
             cout << "   sort <input_file> <output_file>" << endl;
+            return;
+        }
+        if (input_filename == output_filename){
+            cout << "Error! Input and output are the same." << endl;
             return;
         }
         ifstream in(input_filename);
