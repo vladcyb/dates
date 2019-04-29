@@ -16,7 +16,7 @@ bool QueryHandler::CheckOnFails(stringstream& ss, const string& message) const {
     return true;
 }
 
-bool QueryHandler::CheckWriteAvailable(
+bool QueryHandler::Open(
     ofstream& out, const string& output_filename) const {
     out.open(output_filename);
     if (!out){
@@ -41,7 +41,7 @@ void QueryHandler::Handle(const string& query) const {
             return;
         }
         ofstream out;
-        if (!CheckWriteAvailable(out, output_filename)){
+        if (!Open(out, output_filename)){
             return;
         }
         stringstream output_data;
@@ -91,7 +91,7 @@ void QueryHandler::Handle(const string& query) const {
         }
         ifstream in(input_filename);
         ofstream out;
-        if(!CheckWriteAvailable(out, output_filename)){
+        if(!Open(out, output_filename)){
             return;
         }
         Date date;
@@ -115,7 +115,7 @@ void QueryHandler::Handle(const string& query) const {
         }
         ifstream in(input_filename);
         ofstream out;
-        if (!CheckWriteAvailable(out, output_filename)){
+        if (!Open(out, output_filename)){
             cout << output_filename << ": " << PERMISSION_ERROR << endl;
             return;
         }
